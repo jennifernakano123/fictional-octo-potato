@@ -5,35 +5,31 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.Subsystems.DriveTrain;
 
-import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.main.RobotMap;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+
 import com.revrobotics.*;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-public class DriveTrain extends Subsystem {
-  /* Create CANSparkMax motor controller objects. White space to differ between master objects and slave objects */
-  CANSparkMax //Master motor controller objects
-    drive_right_M = new CANSparkMax(RobotMap.drive_right_M, MotorType.kBrushless),
-    drive_left_M = new CANSparkMax(RobotMap.drive_left_M, MotorType.kBrushless);
-  CANSparkMax //Slave motor controller objects
-    drive_left_S = new CANSparkMax(RobotMap.drive_left_S, MotorType.kBrushless),
-    drive_right_S = new CANSparkMax(RobotMap.drive_right_S, MotorType.kBrushless);
-  @Override
-  protected void initDefaultCommand() {
-    /* Set masters and followers */
-    drive_left_S.follow(drive_left_M);
-    drive_right_S.follow(drive_right_M);
 
-    /* Close motor controllers to save resources after the motor controller object is created */
-    drive_left_S.close();
-    drive_right_S.close();
-  }
-  public void teleop (double LYAxis, double RYAxis) {
-    drive_left_M.set(LYAxis);
-    drive_right_M.set(RYAxis);
-  }
 
+public class DriveTrain{
+CANSparkMax m_frontLeft = new CANSparkMax(1, MotorType.kBrushless);
+CANSparkMax m_rearLeft = new CANSparkMax(2, MotorType.kBrushless);
+SpeedControllerGroup m_left = new SpeedControllerGroup(m_frontLeft, m_rearLeft);
+
+CANSparkMax m_frontRight = new CANSparkMax(3, MotorType.kBrushless);
+CANSparkMax m_rearRight = new CANSparkMax(4, MotorType.kBrushless);
+SpeedControllerGroup m_right = new SpeedControllerGroup(m_frontRight, m_rearRight);
+
+/*Ask Corbin what tf this is for
+protected void initDefaultCommand(){
+    m_frontLeft.follow(m_left);
+    m_rearLeft.follow(m_left);
+    m_frontRight.follow(m_right);
+    m_rearRight.follow(m_right);
+}*/
 }
