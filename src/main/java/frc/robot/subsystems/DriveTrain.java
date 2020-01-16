@@ -36,6 +36,4 @@ public class DriveTrain extends Subsystem {
     drive_right_M.set(RYAxis);
   }
 
-Ayo u wanna go prom lol :)
-
 }
